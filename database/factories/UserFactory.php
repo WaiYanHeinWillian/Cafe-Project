@@ -25,6 +25,8 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'username'=>$this->faker->unique()->userName(),
+            'avatar'=>'https://i.pravatar.cc/150?u='.$this->faker->randomNumber(1,100),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
