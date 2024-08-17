@@ -31,14 +31,17 @@ Route::post('/menus/{menu:slug}/subscription',[MenuController::class,'subscripti
 
 
 //admin routes
-Route::get('/admin/menus',[AdminMenuController::class,'index'])->middleware('admin');
-Route::get('/admin/menus/create',[AdminMenuController::class,'create'])->middleware('admin');
 
-Route::post('/admin/menus/store',[AdminMenuController::class,'store'])->middleware('admin');
+Route::middleware('can:admin')->group(function(){
+    Route::get('/admin/menus',[AdminMenuController::class,'index']);
+    Route::get('/admin/menus/create',[AdminMenuController::class,'create']);
 
-Route::delete('/admin/menus/{menu:slug}/delete',[AdminMenuController::class,'destroy'])->middleware('admin');
-Route::get('/admin/menus/{menu:slug}/edit',[AdminMenuController::class,'edit'])->middleware('admin');
-Route::patch('/admin/menus/{menu:slug}/update',[AdminMenuController::class,'update'])->middleware('admin');
+    Route::post('/admin/menus/store',[AdminMenuController::class,'store']);
+
+    Route::delete('/admin/menus/{menu:slug}/delete',[AdminMenuController::class,'destroy']);
+    Route::get('/admin/menus/{menu:slug}/edit',[AdminMenuController::class,'edit']);
+    Route::patch('/admin/menus/{menu:slug}/update',[AdminMenuController::class,'update']);
+});
 
 
 
